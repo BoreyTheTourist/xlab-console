@@ -46,11 +46,12 @@ namespace Tuto
 
     public void RemoveAt(uint idx)
     {
-      if (idx > _length--)
+      if (idx >= _length)
       {
         throw new IndexOutOfRangeException($"Index was {idx} while length was {_length}");
       }
       
+      _length--;
       for (uint i = idx; i < _length; ++i)
       {
         _arr[i] = _arr[i + 1];

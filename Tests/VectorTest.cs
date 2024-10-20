@@ -139,8 +139,13 @@ namespace Tests
         [Test]
         public void RemoveAt_OutOfRange()
         {
+            const int el = 10;
             var vec = new Tuto.Vector<int>();
+            vec.Add(el);
+            uint len = 1;
+
             Assert.Throws<IndexOutOfRangeException>(() => { vec.RemoveAt(vec.Length + 1); });
+            Assert.AreEqual(vec.Length, len);
         }
     }
 }
