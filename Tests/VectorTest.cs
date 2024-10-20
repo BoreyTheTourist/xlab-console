@@ -17,15 +17,15 @@ namespace Tests
         {
             var vec = new Tuto.Vector<uint>();
             uint len = 0;
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
 
             len = 100;
             for (uint i = 0; i < len; ++i)
             {
                 vec.Add(i);
-                Assert.AreEqual(vec[i], i);
+                Assert.AreEqual(i, vec[i]);
             }
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
         }
 
         [Test]
@@ -39,20 +39,20 @@ namespace Tests
 
             vec.Insert(0, el);
             len++;
-            Assert.AreEqual(vec.Length, len);
-            Assert.AreEqual(vec[0], el);
+            Assert.AreEqual(len, vec.Length);
+            Assert.AreEqual(el, vec[0]);
 
             vec.Insert(0, el1);
             len++;
-            Assert.AreEqual(vec.Length, len);
-            Assert.AreEqual(vec[0], el1);
-            Assert.AreEqual(vec[1], el);
+            Assert.AreEqual(len, vec.Length);
+            Assert.AreEqual(el1, vec[0]);
+            Assert.AreEqual(el, vec[1]);
 
             vec.Insert(len++, el2);
-            Assert.AreEqual(vec.Length, len);
-            Assert.AreEqual(vec[0], el1);
-            Assert.AreEqual(vec[1], el);
-            Assert.AreEqual(vec[2], el2);
+            Assert.AreEqual(len, vec.Length);
+            Assert.AreEqual(el1, vec[0]);
+            Assert.AreEqual(el, vec[1]);
+            Assert.AreEqual(el2, vec[2]);
         }
 
         [Test]
@@ -67,25 +67,22 @@ namespace Tests
         [Test]
         public void Clear()
         {
-            const int el = 0;
-            const int el1 = 1;
-            const int el2 = 2;
             var vec = new Tuto.Vector<int>();
             uint len = 0;
 
             vec.Clear();
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
 
             len = 100;
             for (uint i = 0; i < len; ++i)
             {
                 vec.Add((int)i);
             }
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
 
             vec.Clear();
             len = 0;
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
         }
 
         [Test]
@@ -106,12 +103,12 @@ namespace Tests
 
             vec.Remove(el);
             len--;
-            Assert.AreEqual(vec.Length, len);
-            Assert.AreEqual(vec[0], el1);
-            Assert.AreEqual(vec[len - 1], el);
+            Assert.AreEqual(len, vec.Length);
+            Assert.AreEqual(el1, vec[0]);
+            Assert.AreEqual(el, vec[len - 1]);
 
             vec.Remove(el3);
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
         }
 
         [Test]
@@ -124,15 +121,15 @@ namespace Tests
             {
                 vec.Add(i);
             }
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
 
             vec.RemoveAt(0);
             vec.RemoveAt(vec.Length-1);
             len -= 2;
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
             for (uint i = 0; i < len; ++i)
             {
-                Assert.AreEqual(vec[i], i+1);
+                Assert.AreEqual(i+1, vec[i]);
             }
         }
 
@@ -145,7 +142,7 @@ namespace Tests
             uint len = 1;
 
             Assert.Throws<IndexOutOfRangeException>(() => { vec.RemoveAt(vec.Length + 1); });
-            Assert.AreEqual(vec.Length, len);
+            Assert.AreEqual(len, vec.Length);
         }
     }
 }
