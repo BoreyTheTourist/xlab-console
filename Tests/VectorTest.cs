@@ -15,11 +15,10 @@ namespace Tests
         [Test]
         public void Add()
         {
-            var vec = new Tuto.Vector<uint>();
-            uint len = 0;
-            Assert.AreEqual(len, vec.Length);
+            uint len = 100;
+            var vec = new Tuto.Vector<uint>(len);
+            Assert.AreEqual(0, vec.Length);
 
-            len = 100;
             for (uint i = 0; i < len; ++i)
             {
                 vec.Add(i);
@@ -67,13 +66,12 @@ namespace Tests
         [Test]
         public void Clear()
         {
-            var vec = new Tuto.Vector<int>();
-            uint len = 0;
+            uint len = 100;
+            var vec = new Tuto.Vector<int>(len);
 
             vec.Clear();
-            Assert.AreEqual(len, vec.Length);
+            Assert.AreEqual(0, vec.Length);
 
-            len = 100;
             for (uint i = 0; i < len; ++i)
             {
                 vec.Add((int)i);

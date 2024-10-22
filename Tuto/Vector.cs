@@ -120,6 +120,7 @@ namespace Tuto
     public void Clear()
     {
       _length = 0;
+      _capacity = DefaultCapacity;
       _arr = new T[DefaultCapacity];
     }
 
