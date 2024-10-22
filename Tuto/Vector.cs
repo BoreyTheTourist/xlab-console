@@ -4,10 +4,33 @@ namespace Tuto
 {
   public class Vector<T>
   {
-    uint _d = 10;
-    T[] _arr = new T[] { };
+    private const uint DefaultCapacity = 8;
+    T[] _arr;
     uint _length = 0;
     public uint Length { get { return _length; } }
+    uint _capacity = DefaultCapacity;
+    public uint Capacity
+    {
+      get => _capacity;
+      set
+      {
+        if (value < _length)
+        {
+          throw new IndexOutOfRangeException($"Tried to set capacity {value} while length was {_length}");
+        } else if (value == _length)
+        {
+          return;
+        }
+
+        _capacity = value;
+        var narr = new T[_capacity];
+        for (uint i = 0; i < _arr.Length; ++i)
+        {
+          narr[i] = _arr[i];
+        }
+        _arr = narr;
+      }
+    }
 
     public T this[uint idx]
     {
@@ -30,16 +53,22 @@ namespace Tuto
       }
     }
 
+    public Vector()
+    {
+      _arr = new T[_capacity];
+    }
+
+    public Vector(uint capacity)
+    {
+      _capacity = capacity;
+      _arr = new T[capacity];
+    }
+
     public void Add(T item)
     {
-      if (_length == (uint)_arr.Length)
+      if (_length == _capacity)
       {
-        var narr = new T[_length + _d];
-        for (uint i = 0; i < _length; ++i)
-        {
-          narr[i] = _arr[i];
-        }
-        _arr = narr;
+        Capacity <<= 1;
       }
       _arr[_length++] = item;
     }
@@ -94,6 +123,7 @@ namespace Tuto
     public void Clear()
     {
       _length = 0;
+      _arr = new T[DefaultCapacity];
     }
 
     public override string ToString()
