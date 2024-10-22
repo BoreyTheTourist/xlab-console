@@ -144,5 +144,29 @@ namespace Tests
             Assert.Throws<IndexOutOfRangeException>(() => { vec.RemoveAt(vec.Length + 1); });
             Assert.AreEqual(len, vec.Length);
         }
+
+        [Test]
+        public void IndexOf()
+        {
+            const uint len = 100;
+            var vec = new Tuto.Vector<uint>(len);
+            for (uint i = 0; i < len; ++i)
+            {
+                vec.Add(i);
+                uint? idx = vec.IndexOf(vec[i]);
+                Assert.NotNull(idx);
+                Assert.AreEqual(i, idx.Value);
+            }
+        }
+
+        [Test]
+        public void IndexOf_NotPresent()
+        {
+            const int el = 2;
+            const int el1 = 3;
+            var vec = new Tuto.Vector<int>();
+            vec.Add(el);
+            Assert.Null(vec.IndexOf(el1));
+        }
     }
 }

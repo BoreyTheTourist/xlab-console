@@ -89,13 +89,10 @@ namespace Tuto
 
     public void Remove(T item)
     {
-      for (uint i = 0; i < _length; ++i)
+      var i = IndexOf(item);
+      if (i != null)
       {
-        if (EqualityComparer<T>.Default.Equals(_arr[i], item))
-        {
-          RemoveAt(i);
-          return;
-        }
+        RemoveAt(i.Value);
       }
     }
 
@@ -138,6 +135,18 @@ namespace Tuto
         res += _arr[_length - 1];
       }
       return res + "]";
+    }
+
+    public uint? IndexOf(T item)
+    {
+      for (uint i = 0; i <= _length; ++i)
+      {
+        if (EqualityComparer<T>.Default.Equals(_arr[i], item))
+        {
+          return i;
+        }
+      }
+      return null;
     }
   }
 }
