@@ -114,8 +114,8 @@ namespace Tests
         [Test]
         public void RemoveAt()
         {
-            var vec = new Tuto.Vector<uint>();
             uint len = 100;
+            var vec = new Tuto.Vector<uint>(len);
 
             for (uint i = 0; i < len; ++i)
             {
