@@ -153,9 +153,9 @@ namespace Tests
             for (uint i = 0; i < len; ++i)
             {
                 vec.Add(i);
-                uint? idx = vec.IndexOf(vec[i]);
-                Assert.NotNull(idx);
-                Assert.AreEqual(i, idx.Value);
+                uint idx;
+                Assert.NotNull(vec.IndexOf(vec[i]).IsSome(out idx));
+                Assert.AreEqual(i, idx);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Tests
             const int el1 = 3;
             var vec = new Tuto.Vector<int>();
             vec.Add(el);
-            Assert.Null(vec.IndexOf(el1));
+            Assert.That(vec.IndexOf(el1).IsNone());
         }
 
         [Test]
