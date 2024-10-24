@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualBasic;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 using Sort;
@@ -187,6 +188,62 @@ namespace Tests
                 return Ordering.Equal;
             });
             Assert.That(callCount > 0);
+        }
+
+        [Test]
+        public void ForEach()
+        {
+            uint len = 20;
+            uint callCount = 0;
+            var vec1 = new Tuto.Vector<uint>(len);
+            var vec2 = new Tuto.Vector<uint>(len);
+
+            vec1.ForEach(el => {
+                callCount++;
+                vec2.Add(el);
+            });
+            Assert.AreEqual(0, vec1.Length);
+            Assert.AreEqual(0, vec1.Length);
+            Assert.AreEqual(0, callCount);
+
+            for (uint i = 0; i < len; ++i)
+            {
+                vec1.Add(i);
+            }
+            vec1.ForEach(el => {
+                callCount++;
+                vec2.Add(el);
+            });
+            Assert.AreEqual(len, vec1.Length);
+            Assert.AreEqual(len, callCount);
+            Assert.AreEqual(vec1.Length, vec2.Length);
+            for (uint i = 0; i < vec1.Length; ++i)
+            {
+                Assert.AreEqual(vec1[i], vec2[i]);
+            }
+        }
+
+        [Test]
+        public void Find()
+        {
+            const string el = "some";
+            const string elSub = "so";
+            const string el1 = "kak";
+            var vec = new Tuto.Vector<string>();
+            vec.Add(el);
+            vec.Add(el1);
+
+            var ans = vec.Find(el => el.Contains(elSub));
+            string val;
+            Assert.That(ans.IsSome(out val));
+            Assert.That(val == el);
+        }
+
+        [Test]
+        public void Find_NotPresent()
+        {
+            var vec = new Tuto.Vector<int>();
+            Assert.That(vec.Find(el => el > 0).IsNone());
         }
     }
 }

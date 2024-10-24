@@ -1,7 +1,11 @@
 using System.Data;
+using System.Data.SqlTypes;
 using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
+using System.Reflection.Metadata.Ecma335;
+using System.Timers;
 using Sort;
+using Monad;
 
 namespace Tuto
 {
@@ -154,9 +158,26 @@ namespace Tuto
       return null;
     }
 
-    public void SortBy(Compare<T> cmp)
+    public void SortBy(Compare<T> compare)
     {
-      Sorter.Sort(this, cmp);
+      Sorter.Sort(this, compare);
+    }
+
+    public void ForEach(Action<T> action)
+    {
+      for (uint i = 0; i < _length; ++i)
+      {
+        action(_arr[i]);
+      }
+    }
+
+    public Option<T> Find(Func<T, bool> predicate)
+    {
+      for (uint i = 0; i < _length; ++i)
+      {
+        if (predicate(_arr[i])) return Option<T>.Some(_arr[i]);
+      }
+      return Option<T>.None;
     }
   }
 }
