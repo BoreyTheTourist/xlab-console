@@ -1,14 +1,18 @@
+using System.Data;
+using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
+using Sort;
 
 namespace Tuto
 {
-  public class Vector<T>
+  public class Vector<T> : ISortable<T>
   {
     private const uint DefaultCapacity = 8;
     T[] _arr;
     uint _length = 0;
-    public uint Length { get { return _length; } }
     uint _capacity = DefaultCapacity;
+    public ISort<T> Sorter = new QuickSort<T>();
+    public uint Length { get { return _length; } }
     public uint Capacity
     {
       get => _capacity;
@@ -148,6 +152,11 @@ namespace Tuto
         }
       }
       return null;
+    }
+
+    public void SortBy(Compare<T> cmp)
+    {
+      Sorter.Sort(this, cmp);
     }
   }
 }

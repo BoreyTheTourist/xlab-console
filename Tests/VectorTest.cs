@@ -2,6 +2,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
+using Sort;
 
 namespace Tests
 {
@@ -165,6 +166,27 @@ namespace Tests
             var vec = new Tuto.Vector<int>();
             vec.Add(el);
             Assert.Null(vec.IndexOf(el1));
+        }
+
+        [Test]
+        public void SortBy()
+        {
+            const uint len = 10;
+            uint callCount = 0;
+            var vec = new Tuto.Vector<uint>(len);
+            for (uint i = 0; i < len; ++i)
+            {
+                vec.Add(i);
+            }
+            
+            vec.Sorter = new QuickSort<uint>();
+            vec.SortBy(Ordering (uint a, uint b) => {
+                callCount++;
+                if (a > b) return Ordering.Greater;
+                if (a < b) return Ordering.Less;
+                return Ordering.Equal;
+            });
+            Assert.That(callCount > 0);
         }
     }
 }

@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Assertion", "NUnit2005:Consider using Assert.That(actual, Is.EqualTo(expected)) instead of Assert.AreEqual(expected, actual)", Justification = "Fluent assertions not so readable", Scope = "module")]
+[assembly: SuppressMessage("Assertion", "NUnit2006:Consider using Assert.That(actual, Is.Not.EqualTo(expected)) instead of Assert.AreNotEqual(expected, actual)", Justification = "Fluent assertions not so readable", Scope = "module")]
